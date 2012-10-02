@@ -1,0 +1,10 @@
+# pycountrycode
+
+A port of the ``countrycode`` package for R: 
+
++ http://cran.r-project.org/web/packages/countrycode/index.html
++ http://github.com/vincentarelbundock/countrycode
++ http://umich.edu/~varel
+
+This is *alpha* software; the script probably won't behave well in all cases. 
+
