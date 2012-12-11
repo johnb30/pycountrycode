@@ -1,11 +1,15 @@
 import pandas as pd
 import re
+import pkgutil
+import StringIO
 
 # Conversion table
-data = pd.read_csv('countrycode_data.csv')
+csvdata = pkgutil.get_data(__name__, 'data/countrycode_data.csv')
+csvio = StringIO.StringIO(csvdata)
+data = pd.read_csv(csvio)
 
 # Conversion function
-def convert(origin='iso3c', target='country_name', codes=['DZA', 'CAN']):
+def countrycode(origin='iso3c', target='country_name', codes=['DZA', 'CAN'], data=data):
     # Codes to clean strings
     if type(codes) == str:
         codes = [codes]
