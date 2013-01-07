@@ -12,7 +12,9 @@ data = pd.read_csv(csvio)
 def countrycode(origin='iso3c', target='country_name', codes=['DZA', 'CAN'], data=data):
     # Codes to clean strings
     if type(codes) == str:
-        codes = [codes]
+        codes = pd.Series([codes])
+    elif type(codes) == list:
+        codes = pd.Series(codes)
     target_codes = map(lambda x: re.sub('.0', '', str(x).strip()), data[target])
     if origin == 'country_name':
         origin_codes = map(lambda x: re.sub('.0', '', str(x).strip()), data['regex'])
@@ -24,14 +26,18 @@ def countrycode(origin='iso3c', target='country_name', codes=['DZA', 'CAN'], dat
     # For each origin code in dict, map substitution to input code list
     if origin != 'country_name':
         for val in dictionary:
-            old = '^' + str(val) + '$'
+            old = str(val)
             new = dictionary[val]
-            codes = map(lambda x: re.sub(old, new, x), codes)
+            idx = codes.str.contains(old, case=False)
+            codes[idx] = new
     else:
         for idx, val in enumerate(dictionary):
-            old = '(?i)' + val 
+            old = str(val)
             new = dictionary.values()[idx]
-            codes = map(lambda x: re.sub(old, new, x), codes)
+            idx = codes.str.contains(old, case=False)
+            codes[idx] = new
+    if len(codes) == 1:
+        codes = codes[0]
     return codes
 
 
