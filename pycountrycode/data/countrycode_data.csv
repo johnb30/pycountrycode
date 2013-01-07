@@ -144,7 +144,7 @@
 "MEXICO","MEX",70,138,"MX",273,"MX","MEX",484,484,"MEX","Americas","Central America",".*mexico.*"
 "MARSHALL ISLANDS","MSI",983,127,"RM",867,"MH","MHL",584,584,"MHL","Oceania","Micronesia",".*marshall.*"
 "MACEDONIA, THE FORMER YUGOSLAV REPUBLIC OF","MAC",343,154,"MK",962,"MK","MKD",807,807,"MKD","Europe","Southern Europe",".*macedonia.*"
-"MALI","MLI",432,133,"ML",678,"ML","MLI",466,466,"MLI","Africa","Western Africa","[^\w]*mali[^\w]*"
+"MALI","MLI",432,133,"ML",678,"ML","MLI",466,466,"MLI","Africa","Western Africa","^[^\w]*mali|rep.* mali"
 "MALTA","MLT",338,134,"MT",181,"MT","MLT",470,470,"MLT","Europe","Southern Europe",".*malta.*"
 "MYANMAR","MYA",775,28,"BM",518,"MM","MMR",104,104,"MMR","Asia","South-Eastern Asia",".*myanmar.*|.*burma.*"
 "MONTENEGRO","MNG",341,273,"MJ",943,"ME","MNE",499,499,"MNE","Europe","Southern Europe",".*montenegro.*"
