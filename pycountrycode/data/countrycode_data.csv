@@ -170,7 +170,7 @@
 "NEPAL","NEP",790,149,"NP",558,"NP","NPL",524,524,"NPL","Asia","Southern Asia",".*nepal.*"
 "NAURU","NAU",970,148,"NR",836,"NR","NRU",520,520,NA,"Oceania","Micronesia",".*nauru.*"
 "NEW ZEALAND","NEW",920,156,"NZ",196,"NZ","NZL",554,554,"NZL","Oceania","Australia and New Zealand",".*new zealand.*"
-"OMAN","OMA",698,221,"MU",449,"OM","OMN",512,512,"OMN","Asia","Western Asia","[^r]oman.*"
+"OMAN","OMA",698,221,"MU",449,"OM","OMN",512,512,"OMN","Asia","Western Asia","^[^r]*oman.*"
 "PAKISTAN","PAK",770,165,"PK",564,"PK","PAK",586,586,"PAK","Asia","Southern Asia",".*pakistan.*"
 "PANAMA","PAN",95,166,"PM",283,"PA","PAN",591,591,"PAN","Americas","Central America",".*panama.*"
 "PITCAIRN",NA,NA,NA,NA,NA,"PN","PCN",612,612,NA,"Oceania","Polynesia",".*pitcairn.*"
