@@ -1,43 +1,84 @@
-import pandas as pd
 import re
-import pkgutil
-import StringIO
+import os
+import csv
+from copy import copy
 
-# Conversion table
-csvdata = pkgutil.get_data(__name__, 'data/countrycode_data.csv')
-csvio = StringIO.StringIO(csvdata)
-data = pd.read_csv(csvio)
+pkg_dir, pkg_filename = os.path.split(__file__)
+data_path = os.path.join(pkg_dir, "data", "countrycode_data.csv")
+f = csv.reader(open(data_path, 'r'))
+data = zip(*f)
+data = [(x[0], x[1:]) for x in data]
+data = dict(data)
 
-# Conversion function
-def countrycode(origin='iso3c', target='country_name', codes=['DZA', 'CAN'], data=data):
-    # Codes to clean strings
+def countrycode(codes=['DZA', 'CAN'], origin='iso3c', target='country_name'):
+    '''Convert to and from 11 country code schemes. Use regular expressions to detect country names and standardize them. Assign region/continent descriptors.
+
+    Parameters
+    ----------
+
+    codes : string or list of strings 
+        country names or country codes to convert
+    origin : string
+        name of the coding scheme of origin
+    target : string
+        name of the coding scheme you wish to obtain
+
+    Notes
+    -----
+
+    Valid origin codes: 
+    
+        * country_name 
+        * iso2c : ISO 2 character
+        * iso3c : ISO 3 character
+        * iso3n : ISO 3 numeric
+        * cown : Correlates of War numeric
+        * cowc : Correlates of War character
+        * un : United Nations
+        * wb : World Bank
+        * imf : International Monetary Fund
+        * fips104 : FIPS 10-4 U.S. government geographic data
+        * fao : Food & Agriculture Organization of the U.N.
+
+    Valid target codes:
+
+        * Any valid origin code
+        * region : World Bank geographic region descriptor
+        * continent : Name of continent 
+    '''
+
     if type(codes) == str:
-        codes = pd.Series([codes])
-    elif type(codes) == list:
-        codes = pd.Series(codes)
-    target_codes = map(lambda x: re.sub('.0', '', str(x).strip()), data[target])
+        codes = [codes]
+        loner = True
+    else:
+        loner = False
+
+    try:
+        codes = ["%.0f" % x for x in codes]
+    except:
+        codes = [str(x).strip() for x in codes]
+
+    target_codes = data[target]
+
     if origin == 'country_name':
-        origin_codes = map(lambda x: re.sub('.0', '', str(x).strip()), data['regex'])
+        origin_codes = ['(?i)' + x for x in data['regex']]
     else:
-        origin_codes = map(lambda x: re.sub('.0', '', str(x).strip()), data[origin])
-    # Conversion dictionary
+        origin_codes = data[origin]
+
+    idx = [True if (v != 'NA') and (origin_codes[i] != 'NA') else False
+           for i,v in enumerate(target_codes)] 
+    origin_codes = [v for i,v in enumerate(origin_codes) if idx[i]]
+    target_codes = [v for i,v in enumerate(target_codes) if idx[i]]
+
     dictionary = dict(zip(origin_codes, target_codes))
-    dictionary['nan'] = 'nan'
-    # For each origin code in dict, map substitution to input code list
-    if origin != 'country_name':
-        for val in dictionary:
-            old = str(val)
-            new = dictionary[val]
-            idx = codes.str.contains(old, case=False)
-            codes[idx] = new
-    else:
-        for idx, val in enumerate(dictionary):
-            old = str(val)
-            new = dictionary.values()[idx]
-            idx = codes.str.contains(old, case=False)
-            codes[idx] = new
-    if len(codes) == 1:
-        codes = codes[0]
-    return codes
 
+    codes_new = copy(codes)
 
+    for k in dictionary.keys():
+        codes_new = [dictionary[k] if re.match(k, x) != None else x 
+                for x in codes_new]
+
+    if loner:
+        codes_new = codes_new[0]
+
+    return codes_new

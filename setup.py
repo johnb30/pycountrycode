@@ -11,8 +11,5 @@ setup(
     license='LICENSE.txt',
     description='Convert country names and country codes',
     long_description=open('README.rst').read(),
-    install_requires=[
-        "pandas >= 0.9.0rc2",
-    ],
     package_data={'pycountrycode': ['data/countrycode_data.csv']}
 )
