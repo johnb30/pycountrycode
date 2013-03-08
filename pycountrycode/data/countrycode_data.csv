@@ -165,7 +165,7 @@
 "NIGERIA","NIG",475,159,"NI",694,"NG","NGA",566,566,"NGA","Africa","Western Africa","nigeria"
 "NICARAGUA","NIC",93,157,"NU",278,"NI","NIC",558,558,"NIC","Americas","Central America",".*nicaragua.*"
 "NIUE",NA,NA,160,NA,NA,"NU","NIU",570,570,"NIU","Oceania","Polynesia",".*niue.*"
-"NETHERLANDS","NTH",210,150,"NL",138,"NL","NLD",528,528,"NLD","Europe","Western Europe",".*netherlands(?!ant).*"
+"NETHERLANDS","NTH",210,150,"NL",138,"NL","NLD",528,528,"NLD","Europe","Western Europe",".*netherlands(?<!ant)"
 "NORWAY","NOR",385,162,"NO",142,"NO","NOR",578,578,"NOR","Europe","Northern Europe",".*norway.*"
 "NEPAL","NEP",790,149,"NP",558,"NP","NPL",524,524,"NPL","Asia","Southern Asia",".*nepal.*"
 "NAURU","NAU",970,148,"NR",836,"NR","NRU",520,520,"NRU","Oceania","Micronesia",".*nauru.*"
