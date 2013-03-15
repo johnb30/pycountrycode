@@ -47,6 +47,7 @@ def countrycode(codes=['DZA', 'CAN'], origin='iso3c', target='country_name'):
         * continent : Name of continent 
     '''
 
+    # Codes to be converted (cleanup)
     if type(codes) == str:
         codes = [codes]
         loner = True
@@ -58,6 +59,7 @@ def countrycode(codes=['DZA', 'CAN'], origin='iso3c', target='country_name'):
     except:
         codes = [str(x).strip() for x in codes]
 
+    # Dictionary
     target_codes = data[target]
 
     if origin == 'country_name':
@@ -67,16 +69,21 @@ def countrycode(codes=['DZA', 'CAN'], origin='iso3c', target='country_name'):
 
     idx = [True if (v != 'NA') and (origin_codes[i] != 'NA') else False
            for i,v in enumerate(target_codes)] 
+
     origin_codes = [v for i,v in enumerate(origin_codes) if idx[i]]
     target_codes = [v for i,v in enumerate(target_codes) if idx[i]]
 
     dictionary = dict(zip(origin_codes, target_codes))
 
-    codes_new = copy(codes)
+    if origin != 'country_name':
+        codes_new = ["None" if x not in origin_codes else x for x in codes]
 
     for k in dictionary.keys():
         codes_new = [dictionary[k] if re.match(k, x) != None else x 
-                for x in codes_new]
+                     for x in codes_new]
+
+    # Output
+    codes_new = [None if x=='None' else x for x in codes_new]
 
     if loner:
         codes_new = codes_new[0]
